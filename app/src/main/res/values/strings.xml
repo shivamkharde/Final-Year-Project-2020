@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FinalYearBE2020</string>
+    <string name="applications">Applications</string>
+    <string name="notification_log">Notification log</string>
+    <string name="device_usage">Device usage</string>
+    <string name="similar_apps">Similar apps</string>
+</resources>
