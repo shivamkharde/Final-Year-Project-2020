@@ -1,16 +1,18 @@
-package com.shivamkharde.finalyearbe2020;
+package com.shivamkharde.finalyearbe2020.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.shivamkharde.finalyearbe2020.adapters.ApplicationListAdapter;
+import com.shivamkharde.finalyearbe2020.R;
 
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class ApplicationListActivity extends AppCompatActivity {
 
 //        getting all the installed applications from the device
         packageList = getInstalledApplications();
+
 
 //        initializing components
         initializeComponents();
@@ -60,7 +63,7 @@ public class ApplicationListActivity extends AppCompatActivity {
     //    initializing all the components
     public void initializeComponents(){
 //        initializing RecycleView by finding the id
-        myApplicationListRecycleView = findViewById(R.id.application_list_recycle_view);
+        myApplicationListRecycleView = findViewById(R.id.app_permission_list_recycle_view);
 //        initializing LinearLayoutManager to add list items to the recycle view
         myLayoutManager = new LinearLayoutManager(this);
 //        initializing ApplicationListAdapter by passing package list and current context

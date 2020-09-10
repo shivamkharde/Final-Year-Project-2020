@@ -1,4 +1,4 @@
-package com.shivamkharde.finalyearbe2020;
+package com.shivamkharde.finalyearbe2020.adapters;
 
 import android.content.Context;
 
@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.shivamkharde.finalyearbe2020.R;
+import com.shivamkharde.finalyearbe2020.activities.SingleApplicationInfoActivity;
 
 import java.util.List;
 
@@ -51,12 +53,12 @@ public class ApplicationListAdapter extends RecyclerView.Adapter<ApplicationList
 
     @Override
 //    binding the view holder props/components  with the data available in packageInfo List
-    public void onBindViewHolder(@NonNull ApplicationListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ApplicationListViewHolder holder, final int position) {
 
 //        assigning data from package info list to local variables depending on position
         final Drawable applicationIcon = packageInfo.get(position).loadIcon(applicationContext.getPackageManager());
-        String applicationPackageName = packageInfo.get(position).activityInfo.packageName;
-        CharSequence applicationName =packageInfo.get(position).loadLabel(applicationContext.getPackageManager());
+        final String applicationPackageName = packageInfo.get(position).activityInfo.packageName;
+        final CharSequence applicationName =packageInfo.get(position).loadLabel(applicationContext.getPackageManager());
 
 //        binding application icon data to the holder.applicationIcon image view
         holder.applicationIcon.setImageDrawable(applicationIcon);
@@ -69,10 +71,14 @@ public class ApplicationListAdapter extends RecyclerView.Adapter<ApplicationList
         holder.applicationListItemCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TODO: implement this later
-//                following code is for testing purpose remove after implementing above TODO:
-                Intent testIntent = new Intent(applicationContext,MainActivity.class);
-                applicationContext.startActivity(testIntent);
+
+//                following code is for testing purpose remove after implementing above
+                Intent singleApplicationIntent = new Intent(applicationContext, SingleApplicationInfoActivity.class);
+//                passing single application info details
+                singleApplicationIntent.putExtra("packageName",applicationPackageName);
+                singleApplicationIntent.putExtra("applicationName",applicationName);
+//                singleApplicationIntent.putExtra("applicationIcon",img_id);
+                applicationContext.startActivity(singleApplicationIntent);
 
             }
         });
@@ -103,12 +109,12 @@ public class ApplicationListAdapter extends RecyclerView.Adapter<ApplicationList
 //            assigning applicationIcon image view
             applicationIcon = itemView.findViewById(R.id.application_icon);
 //            assigning applicationName text view
-            applicationName = itemView.findViewById(R.id.application_name);
+            applicationName = itemView.findViewById(R.id.permission_lable);
 //            assigning applicationPackageName text view
-            applicationPackageName = itemView.findViewById(R.id.application_package_name);
+            applicationPackageName = itemView.findViewById(R.id.permission_description);
 //            assigning applicationListItemCardView card view
 //            (this is for event listener to click on particular list item to open info about that application)
-            applicationListItemCardView = itemView.findViewById(R.id.application_list_item_card_view);
+            applicationListItemCardView = itemView.findViewById(R.id.permission_list_item_card_view);
         }
     }
 

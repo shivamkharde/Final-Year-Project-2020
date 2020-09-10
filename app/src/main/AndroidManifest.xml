@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shivamkharde.finalyearbe2020"
-    >
+    package="com.shivamkharde.finalyearbe2020">
 
     <application
         android:allowBackup="true"
@@ -9,14 +8,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
-        <activity android:name=".ApplicationListActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="Application List"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.AppPermissionsActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".MainActivity"
+            android:label="App Permissions"
+            android:parentActivityName=".activities.ApplicationListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".activities.SingleApplicationInfoActivity"
+            android:configChanges="orientation"
+            android:label="App info"
+            android:parentActivityName=".activities.ApplicationListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ApplicationListActivity"
+            android:configChanges="orientation"
+            android:label="Application List"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

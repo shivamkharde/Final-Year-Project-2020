@@ -1,4 +1,4 @@
-package com.shivamkharde.finalyearbe2020;
+package com.shivamkharde.finalyearbe2020.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -6,6 +6,8 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.shivamkharde.finalyearbe2020.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                creating the intent for application list activity
-                Intent myApplicationListIntent = new Intent(MainActivity.this,ApplicationListActivity.class);
+                Intent myApplicationListIntent = new Intent(MainActivity.this, ApplicationListActivity.class);
 //                starting ApplicationListActivity
                 startActivity(myApplicationListIntent);
             }
