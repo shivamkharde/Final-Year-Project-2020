@@ -43,25 +43,43 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:text="Other Permissions"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/textView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.6" />
 
                     <ImageView
                         android:id="@+id/goto_other_permissions_icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        app:srcCompat="@drawable/permissions_page_nevigator_foreground"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:srcCompat="@drawable/permissions_page_nevigator_foreground" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="311dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="16dp"
+                        android:singleLine="false"
+                        android:text="Permissions which are not necessary ( Dangerous )"
+                        android:textColor="@color/primaryLightColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/other_permissions_text_view" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -106,31 +124,30 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="App Permissions"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/app_permissions_text_descreption"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.6" />
 
                     <TextView
                         android:id="@+id/app_permissions_text_descreption"
                         android:layout_width="311dp"
-                        android:layout_height="36dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="16dp"
                         android:text="@string/permissions_desc"
-                        android:textColor="#EDEBEB"
+                        android:textColor="@color/primaryLightColor"
                         android:textSize="13sp"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/app_permissions_text_view"
                         app:layout_constraintVertical_bias="0.0" />
@@ -139,11 +156,12 @@
                         android:id="@+id/goto_app_permissions_icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/permissions_page_nevigator_foreground"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/app_permissions_text_descreption"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/permissions_page_nevigator_foreground" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -184,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="Uninstall"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/primaryLightColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/single_uninstall_btn"
                 app:layout_constraintHorizontal_bias="0.496"

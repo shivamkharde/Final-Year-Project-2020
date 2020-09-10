@@ -40,7 +40,7 @@ public class SingleApplicationInfoActivity extends AppCompatActivity {
 //            getting extras passed by application list activity to get the info about single application
             Bundle extras = getIntent().getExtras();
 //            getting all the values of clicked application
-            String packageName  = extras.getString("packageName");
+            final String packageName  = extras.getString("packageName");
             String applicationName = extras.getString("applicationName");
 
 //            initializing all the components
@@ -79,7 +79,14 @@ public class SingleApplicationInfoActivity extends AppCompatActivity {
                 public void onClick(View v) {
 //                    replace single_application_info_fragment_container with info icon fragment
                     FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-                    t.replace(R.id.single_application_info_fragment_container,new SingleApplicationInfoIconFragment());
+//                    Fragment Class
+                    SingleApplicationInfoIconFragment gearIconFragment = new SingleApplicationInfoIconFragment();
+//                    Passing package name to the fragment by creating bundle
+                    Bundle gearIconBundle = new Bundle();
+                    gearIconBundle.putString("packageName",packageName);
+//                    setting bundle as argument in gearIconFragment
+                    gearIconFragment.setArguments(gearIconBundle);
+                    t.replace(R.id.single_application_info_fragment_container,gearIconFragment);
                     t.addToBackStack(null);
                     t.commit();
                     applicationInfoIcon.setVisibility(View.INVISIBLE);
