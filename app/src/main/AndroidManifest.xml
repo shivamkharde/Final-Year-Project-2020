@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.shivamkharde.finalyearbe2020">
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -9,12 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AppPermissionsActivity"
+        <activity android:name=".activities.SimilarAppsActivity"></activity>
+        <activity
+            android:name=".activities.SingleAppNotificationLogActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".activities.NotificationLogActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.NotificationLogActivity"
+            android:configChanges="orientation"
+            android:label="Notification History"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AppPermissionsActivity"
             android:configChanges="orientation"
             android:label="App Permissions"
             android:parentActivityName=".activities.ApplicationListActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SingleApplicationInfoActivity"
             android:configChanges="orientation"
@@ -37,6 +54,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".utilities.NotificationServiceUtility"
+            android:label="Notifications"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

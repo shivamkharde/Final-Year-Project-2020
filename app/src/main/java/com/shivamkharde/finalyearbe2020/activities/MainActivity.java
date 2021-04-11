@@ -38,6 +38,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myApplicationListIntent);
             }
         });
+
+        myNotificationLogCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                create an intent for notification log activity
+                Intent myNotificationLogIntent = new Intent(MainActivity.this,NotificationLogActivity.class);
+
+//                starting NotificationLogActivity
+                startActivity(myNotificationLogIntent);
+            }
+        });
     }
 
 //initializing all the components

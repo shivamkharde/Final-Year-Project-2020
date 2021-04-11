@@ -8,11 +8,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.shivamkharde.finalyearbe2020.R;
 import com.shivamkharde.finalyearbe2020.adapters.AppPermissionListAdapter;
-import com.shivamkharde.finalyearbe2020.models.AppPermissionsInfo;
 
 import java.util.ArrayList;
 import java.util.List;
