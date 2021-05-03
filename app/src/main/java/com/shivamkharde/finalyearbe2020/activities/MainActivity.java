@@ -49,6 +49,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myNotificationLogIntent);
             }
         });
+
+        mySimilarAppsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                create intent for similar apps activity
+                Intent mySimilarAppsIntent = new Intent(MainActivity.this,SimilarAppsActivity.class);
+
+//                starting similar apps activity
+                startActivity(mySimilarAppsIntent);
+            }
+        });
+
     }
 
 //initializing all the components

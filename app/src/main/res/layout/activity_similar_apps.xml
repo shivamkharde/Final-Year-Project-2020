@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".activities.SimilarAppsActivity">
 
+    <TextView
+        android:id="@+id/similar_apps_text"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="You will get top 10  similar apps for currently installed apps on your device!!"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/similar_apps_installed_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/similar_apps_installed_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/similar_apps_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
