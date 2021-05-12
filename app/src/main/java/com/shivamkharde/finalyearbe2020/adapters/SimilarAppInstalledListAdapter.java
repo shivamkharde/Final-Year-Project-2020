@@ -95,11 +95,14 @@ public class SimilarAppInstalledListAdapter extends RecyclerView.Adapter<Similar
                 // If the response is JSONObject instead of expected JSONArray
                 p.dismiss();
                 try {
+//                    get the json array from json object
+                    JSONArray responseArray = response.getJSONArray("results");
+
 //                    on success get all the necessary data and passit through intent to show the list of similar apps to the user on next page
 //                    create an intent to switch the window with response data
                     Intent similarAppForSingleInstalledAppIntent = new Intent(applicationContext, SimilarAppForSingleInstalledAppActivity.class);
 //                    passing response data as a intent data to the next activity
-                    similarAppForSingleInstalledAppIntent.putExtra("response", response.toString());
+                    similarAppForSingleInstalledAppIntent.putExtra("response", responseArray.toString());
 //                passing single application info details
                     applicationContext.startActivity(similarAppForSingleInstalledAppIntent);
 
@@ -160,11 +163,14 @@ public class SimilarAppInstalledListAdapter extends RecyclerView.Adapter<Similar
                 // If the response is JSONObject instead of expected JSONArray
                 p.dismiss();
                 try {
+//                    get the json array from json object
+                    JSONArray responseArray = response.getJSONArray("results");
+
 //                    on success get all the necessary data and pass it through intent to show the list of similar apps to the user on next page
 //                    create an intent to switch the window with response data
                     Intent similarAppForSingleInstalledAppIntent = new Intent(applicationContext, SimilarAppForSingleInstalledAppActivity.class);
 //                    passing response data as a intent data to the next activity
-                    similarAppForSingleInstalledAppIntent.putExtra("response", response.toString());
+                    similarAppForSingleInstalledAppIntent.putExtra("response", responseArray.toString());
 //                    passing single application info details
                     applicationContext.startActivity(similarAppForSingleInstalledAppIntent);
 
