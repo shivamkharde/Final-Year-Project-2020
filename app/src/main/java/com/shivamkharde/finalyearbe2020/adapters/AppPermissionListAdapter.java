@@ -1,10 +1,14 @@
 package com.shivamkharde.finalyearbe2020.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -14,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shivamkharde.finalyearbe2020.R;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class AppPermissionListAdapter extends RecyclerView.Adapter<AppPermissionListAdapter.AppPermissionListViewHolder> {
 
@@ -70,6 +75,25 @@ public class AppPermissionListAdapter extends RecyclerView.Adapter<AppPermission
         holder.permissionLabel.setText(permissionLabelName);
 //        setting permission description name data to the holder.permissionDescription text view
         holder.permissionDescription.setText(permissionDescriptionName);
+
+//        onclick listener on isPermission granted switch
+        holder.isPermissionGrantedSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                try{
+                    if(isChecked){
+                    }else{
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", packageName, null);
+                        intent.setData(uri);
+                        applicationContext.startActivity(intent);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.shivamkharde.finalyearbe2020.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.shivamkharde.finalyearbe2020.R;
@@ -28,7 +30,10 @@ public class AppPermissionsActivity extends AppCompatActivity {
     private String packageName;
     private PackageInfo packageInfo;
 
+    private boolean isNormal;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,16 +48,26 @@ public class AppPermissionsActivity extends AppCompatActivity {
 //        showing action bar
         getSupportActionBar().show();
 
-//        getting single application package name
+//        getting single application package name and normal bool
         packageName = getIntent().getBundleExtra("singleApplicationPackageName").getString("packageName");
+        isNormal = getIntent().getBooleanExtra("normal",true);
 
         System.out.println("SHIVAM :" +packageName);
+        System.out.println("SHIVAM :" +isNormal);
+
 
         try {
 //        getting package info by passing package name
             packageInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
+
+//            check if normal permissions cardview clicked or other permissions clicked
+            if(isNormal){
 //            getting permission list,labels and description;
-            getNormalPermissionLabelAndDescriptionWithList(packageInfo);
+                getNormalPermissionLabelAndDescriptionWithList(packageInfo);
+            }else{
+//                getting dangerous permissions and their info
+                getDangerousPermissionsLabelAndDescription(packageInfo);
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -73,7 +88,7 @@ public class AppPermissionsActivity extends AppCompatActivity {
 
     }
 
-//    initializing all the components
+    //    initializing all the components
     public void initializeComponents(){
 //        initializing recycle view by finding the id
         mAppPermissionListRecycleView = findViewById(R.id.app_permission_list_recycle_view);
@@ -84,6 +99,7 @@ public class AppPermissionsActivity extends AppCompatActivity {
     }
 
 //    this function is to get the permission list, labels, description
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void getNormalPermissionLabelAndDescriptionWithList(PackageInfo packageInfo)throws Exception{
 //        looping over requestedPermission to get the info about each permission
         for (int i = 0; i < packageInfo.requestedPermissions.length; i++) {
@@ -91,6 +107,33 @@ public class AppPermissionsActivity extends AppCompatActivity {
             PermissionInfo p = getPackageManager().getPermissionInfo(packageInfo.requestedPermissions[i], PackageManager.GET_META_DATA);
 //            if permission protection level is less than 2 then permission is normal and signature (refer docs to know more about permission)
             if(p.getProtection() < 2 ){
+//                getting label , description and permission name
+                String label = (String) p.loadLabel(getPackageManager());
+                String description = (String) p.loadDescription(getPackageManager());
+                String permission = packageInfo.requestedPermissions[i];
+//                if description is null then add "No Description in list" else add description about permission
+                if(description == null)
+                    permissionDescription.add("No description..");
+                else
+                    permissionDescription.add(description);
+//                adding label and permission to the list
+                permissionLabels.add(label);
+                permissionList.add(permission);
+//                add permission granted status in permissionGranted List
+                permissionGranted.add((packageInfo.requestedPermissionsFlags[i] & packageInfo.REQUESTED_PERMISSION_GRANTED));
+            }
+        }
+    }
+
+//    this function is to get all the dangerous permissions and their info
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    private void getDangerousPermissionsLabelAndDescription(PackageInfo packageInfo) throws Exception {
+        //        looping over requestedPermission to get the info about each permission
+        for (int i = 0; i < packageInfo.requestedPermissions.length; i++) {
+//            getting permission info to get the detail info about permission
+            PermissionInfo p = getPackageManager().getPermissionInfo(packageInfo.requestedPermissions[i], PackageManager.GET_META_DATA);
+//            if permission protection level is less than 2 then permission is normal and signature (refer docs to know more about permission)
+            if(p.getProtection() >= 2 ){
 //                getting label , description and permission name
                 String label = (String) p.loadLabel(getPackageManager());
                 String description = (String) p.loadDescription(getPackageManager());

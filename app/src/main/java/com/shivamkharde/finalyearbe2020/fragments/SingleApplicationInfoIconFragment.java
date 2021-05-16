@@ -1,7 +1,9 @@
 package com.shivamkharde.finalyearbe2020.fragments;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +45,16 @@ public class SingleApplicationInfoIconFragment extends Fragment {
 
 //        getting Bundle Values
         String packageName = getArguments().getString("packageName");
+
+//        add listener to uninstall the application
+        singleApplicationInfoIconFragmentView.findViewById(R.id.single_uninstall_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DELETE);
+                intent.setData(Uri.parse("package:"+packageName));
+                startActivity(intent);
+            }
+        });
 
 
 //        initialize Components
