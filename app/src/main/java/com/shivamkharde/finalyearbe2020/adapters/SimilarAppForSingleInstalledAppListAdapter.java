@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.shivamkharde.finalyearbe2020.R;
 import com.shivamkharde.finalyearbe2020.activities.SimilarAppForSingleInstalledAppActivity;
+import com.shivamkharde.finalyearbe2020.activities.SimilarSingleAppInfoActivity;
 import com.shivamkharde.finalyearbe2020.models.SimilarAppHTTPClient;
 import com.shivamkharde.finalyearbe2020.models.SimilarApps;
 
@@ -82,6 +83,16 @@ public class SimilarAppForSingleInstalledAppListAdapter extends RecyclerView.Ada
 
 //        load application url using glide lib
         Glide.with(applicationContext).load(applicationIcon).into(holder.applicationIcon);
+
+//        detect click listener on card view
+        holder.similarAppApiItemCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                navigate to single similar app info page
+                Intent similarSingleAppInfoIntent = new Intent(applicationContext, SimilarSingleAppInfoActivity.class);
+                applicationContext.startActivity(similarSingleAppInfoIntent);
+            }
+        });
 
     }
 

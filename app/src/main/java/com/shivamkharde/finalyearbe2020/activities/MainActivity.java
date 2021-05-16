@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                create intent for similar apps activity
-                Intent mySimilarAppsIntent = new Intent(MainActivity.this,SimilarAppsActivity.class);
+                Intent mySimilarAppsIntent = new Intent(MainActivity.this,SimilarSingleAppInfoActivity.class);
 
 //                starting similar apps activity
                 startActivity(mySimilarAppsIntent);

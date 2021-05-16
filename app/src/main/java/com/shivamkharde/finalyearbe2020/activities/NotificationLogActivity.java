@@ -47,6 +47,7 @@ public class NotificationLogActivity extends AppCompatActivity {
 
         initializeComponents();
 
+
         myNotificationApplicationGroupRecycleView.setHasFixedSize(true);
         myNotificationApplicationGroupRecycleView.setLayoutManager(myLayoutManager);
         myNotificationApplicationGroupRecycleView.setAdapter(myNotificationApplicationGroupRecycleViewAdapter);

@@ -1,5 +1,6 @@
 package com.shivamkharde.finalyearbe2020.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -7,12 +8,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import com.shivamkharde.finalyearbe2020.R;
@@ -28,6 +32,7 @@ public class SingleAppNotificationLogActivity extends AppCompatActivity {
     private RecyclerView.Adapter myNotificationHistoryLogRecycleViewAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +44,7 @@ public class SingleAppNotificationLogActivity extends AppCompatActivity {
         String appPackageName = extra.getString("applicationPackageName");
 
         ActionBar mActionBar= getSupportActionBar();
-
+        
         mActionBar.setTitle(appName+" App Notification History");
 
 //        initializeComponents(appPackageName);
