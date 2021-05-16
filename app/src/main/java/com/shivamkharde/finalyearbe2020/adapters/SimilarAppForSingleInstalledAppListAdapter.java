@@ -4,20 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
+
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.os.Parcelable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,18 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.shivamkharde.finalyearbe2020.R;
-import com.shivamkharde.finalyearbe2020.activities.SimilarAppForSingleInstalledAppActivity;
+
 import com.shivamkharde.finalyearbe2020.activities.SimilarSingleAppInfoActivity;
 import com.shivamkharde.finalyearbe2020.models.SimilarAppHTTPClient;
 import com.shivamkharde.finalyearbe2020.models.SimilarApps;
 
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 import cz.msebera.android.httpclient.Header;
 
@@ -88,12 +84,137 @@ public class SimilarAppForSingleInstalledAppListAdapter extends RecyclerView.Ada
         holder.similarAppApiItemCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                navigate to single similar app info page
-                Intent similarSingleAppInfoIntent = new Intent(applicationContext, SimilarSingleAppInfoActivity.class);
-                applicationContext.startActivity(similarSingleAppInfoIntent);
+
+                String packageName = similarApps.get(position).getPackageName();
+                String permissionsUrl = similarApps.get(position).getPermissionsUrl();
+
+                try{
+//                get detail info of app by detail app url
+                    getDetailSimilarAppInfoAndNavigate(packageName);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
+    }
+
+//    this function is to get detail info about the app
+    private void getDetailSimilarAppInfoAndNavigate(String packageName) {
+
+//        show progress dialog
+        ProgressDialog p = new ProgressDialog(applicationContext);
+        p.setMessage("Please wait while we are fetching details for this app!!!");
+        p.setCancelable(false);
+        p.setMax(100);
+        p.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        p.show();
+
+//        request an API
+        SimilarAppHTTPClient.get("api/apps/"+packageName, null, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                p.dismiss();
+                try {
+//                    get permissions of current package and also pass other details
+                    getSimilarAppPermissionsAndNavigate(packageName,response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                p.dismiss();
+//                create a dialog to show the error
+                AlertDialog.Builder al = new AlertDialog.Builder(applicationContext);
+                al.setMessage("something went wrong !!! check your internet connection");
+                al.setCancelable(false);
+                al.setTitle("Ahh Ohh!!!");
+                al.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        do nothing and hide the progress dialog and alert dialog
+                        p.dismiss();
+//                        do nothing
+                    }
+                });
+                al.show();
+            }
+
+            @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
+                int progress = (int) ((bytesWritten*100)/totalSize);
+                p.setProgress(progress);
+            }
+        });
+    }
+
+//    this method is to get all the permissions for the app and navigate to single similar app
+    private void getSimilarAppPermissionsAndNavigate(String packageName, JSONObject otherAppInfo) {
+
+//        show progress dialog
+        ProgressDialog p = new ProgressDialog(applicationContext);
+        p.setMessage("Please wait while we are fetching permission details for this app!!!");
+        p.setCancelable(false);
+        p.setMax(100);
+        p.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        p.show();
+
+//        request an API
+        SimilarAppHTTPClient.get("api/apps/"+packageName+"/permissions", null, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                p.dismiss();
+                try {
+//                    get permissions object and get array from it
+                    JSONArray responseArray = response.getJSONArray("results");
+
+//                    on success get all the necessary data and passit through intent to show the list of similar apps to the user on next page
+//                    create an intent to switch the window with response data
+                    Intent similarSingleAppInfoIntent = new Intent(applicationContext, SimilarSingleAppInfoActivity.class);
+//                    passing response data as a intent data to the next activity
+                    similarSingleAppInfoIntent.putExtra("response", otherAppInfo.toString());
+                    similarSingleAppInfoIntent.putExtra("permissions_list", responseArray.toString());
+//                passing single application info details
+                    applicationContext.startActivity(similarSingleAppInfoIntent);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                p.dismiss();
+//                create a dialog to show the error
+                AlertDialog.Builder al = new AlertDialog.Builder(applicationContext);
+                al.setMessage("something went wrong !!! check your internet connection");
+                al.setCancelable(false);
+                al.setTitle("Ahh Ohh!!!");
+                al.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        do nothing and hide the progress dialog and alert dialog
+                        p.dismiss();
+//                        do nothing
+                    }
+                });
+                al.show();
+            }
+
+            @Override
+            public void onProgress(long bytesWritten, long totalSize) {
+                super.onProgress(bytesWritten, totalSize);
+                int progress = (int) ((bytesWritten*100)/totalSize);
+                p.setProgress(progress);
+            }
+        });
     }
 
 
