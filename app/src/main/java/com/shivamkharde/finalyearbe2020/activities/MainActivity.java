@@ -50,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        myDeviceUsageCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                create an intent for notification log activity
+                Intent deviceUsageIntent = new Intent(MainActivity.this,DeviceUsageActivity.class);
+//                starting DeviceUsageActivity
+                startActivity(deviceUsageIntent);
+            }
+        });
+
         mySimilarAppsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

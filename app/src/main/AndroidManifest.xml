@@ -24,11 +24,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.DeviceUsageActivity"
+            android:configChanges="orientation"
+            android:label="Last Time Usage"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity
             android:name=".activities.SimilarSingleAppPermissionsListActivity"
             android:configChanges="orientation"
             android:parentActivityName=".activities.SimilarSingleAppInfoActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SimilarSingleAppInfoActivity"
             android:configChanges="orientation"
