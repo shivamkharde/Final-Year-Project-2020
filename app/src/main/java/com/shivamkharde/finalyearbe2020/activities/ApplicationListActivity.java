@@ -1,5 +1,6 @@
 package com.shivamkharde.finalyearbe2020.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +47,6 @@ public class ApplicationListActivity extends AppCompatActivity {
 //        setting ApplicationListAdapter to the recycle view
         myApplicationListRecycleView.setAdapter(myApplicationListAdapter);
 
-
     }
 
 
@@ -59,6 +59,7 @@ public class ApplicationListActivity extends AppCompatActivity {
 //        call getPackageManager function to return all the installed applications
         return getApplicationContext().getPackageManager().queryIntentActivities(app,0);
     }
+
 
     //    initializing all the components
     public void initializeComponents(){

@@ -39,7 +39,8 @@ public class NotificationServiceUtility extends NotificationListenerService {
         }
 
         Bundle extraInfo = sbn.getNotification().extras;
-        String title = extraInfo.getString("android.title");
+        System.out.println(extraInfo.toString());
+        String title = extraInfo.getCharSequence("android.title").toString();
         String text = extraInfo.getCharSequence("android.text").toString();
         int id1 = extraInfo.getInt(Notification.EXTRA_SMALL_ICON);
         Bitmap id = sbn.getNotification().largeIcon;

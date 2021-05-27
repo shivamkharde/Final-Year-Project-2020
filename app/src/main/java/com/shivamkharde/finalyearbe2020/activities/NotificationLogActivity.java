@@ -7,15 +7,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AppOpsManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -47,11 +53,24 @@ public class NotificationLogActivity extends AppCompatActivity {
 
         initializeComponents();
 
+//        check if notification access is granted or not
+
+
+            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+
 
         myNotificationApplicationGroupRecycleView.setHasFixedSize(true);
         myNotificationApplicationGroupRecycleView.setLayoutManager(myLayoutManager);
         myNotificationApplicationGroupRecycleView.setAdapter(myNotificationApplicationGroupRecycleViewAdapter);
 
+    }
+
+    private boolean isNotificationServiceRunning() {
+        ContentResolver contentResolver = getContentResolver();
+        String enabledNotificationListeners =
+                Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+        String packageName = getPackageName();
+        return enabledNotificationListeners != null && enabledNotificationListeners.contains(packageName);
     }
 
 //    this function is to get the installed applications from the device
